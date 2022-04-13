@@ -248,10 +248,10 @@ _devsetup_command_environment()
 	#aliases
 	case "$0" in
 		/*)
-			echo alias devsetup="$0"
+			echo alias "devsetup=\"$0\""
 			;;
 		*)
-			echo alias devsetup="$PWD/$0"
+			echo alias "devsetup=\"$PWD/$0\""
 			;;
 	esac
 }
