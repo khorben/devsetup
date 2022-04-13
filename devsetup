@@ -39,6 +39,7 @@ INSTALL="install"
 LDAPADD=
 MKDIR="mkdir"
 PKG_DELETE=
+PSQL=
 RM="/bin/rm -f"
 #settings
 BUILD_JOBS=8
@@ -89,6 +90,8 @@ PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="$HOME/Projects/EdgeBSD/pkgsrc"
 PKGSRC_SYSCONFDIR=
+POSTGRESQL_ADMIN_DATABASE="template1"
+POSTGRESQL_ADMIN_PASSWORD="psqlseed${HOME}padding"
 POSTGRESQL_DATADIR=
 PROGNAME="devsetup"
 PROJECT_DOMAIN="nopwn.it"
@@ -113,6 +116,7 @@ VERBOSE=1
 [ -n "$PKG_DELETE" ]		|| PKG_DELETE="$PKGSRC_PREFIX/sbin/pkg_delete"
 [ -n "$PKGSRC_SYSCONFDIR" ]	|| PKGSRC_SYSCONFDIR="$PKGSRC_PREFIX/etc"
 [ -n "$POSTGRESQL_DATADIR" ]	|| POSTGRESQL_DATADIR="$PKGSRC_PREFIX/pgsql/data"
+[ -n "$PSQL" ]			|| PSQL="$PKGSRC_PREFIX/bin/psql"
 
 
 #functions
@@ -4881,9 +4885,17 @@ local   all             all                                     password
 #host    replication     all             ::1/128                 trust
 EOF
 
-	#echo "ALTER ROLE $USER \
-	#	WITH ENCRYPTED PASSWORD '$POSTGRESQL_ADMIN_PASSWORD'" \
-	#	| $PSQL "$POSTGRESQL_ADMIN_DATABASE"
+	#database
+	#XXX run the pgsql service for this to work
+	_devsetup_services_command "status" "pgsql" > "$DEVNULL" ||
+		_devsetup_services_command "start" "pgsql"
+	if [ $? -ne 0 ]; then
+		_error "$package: Could not start pgsql for configuration"
+		return $?
+	fi
+	echo "ALTER ROLE $USER \
+		WITH ENCRYPTED PASSWORD '$POSTGRESQL_ADMIN_PASSWORD'" \
+		| $DEBUG $PSQL "$POSTGRESQL_ADMIN_DATABASE"
 }
 
 _devsetup_package_configure_php74_roundcube()
