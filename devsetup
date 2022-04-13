@@ -4658,7 +4658,7 @@ _devsetup_package_configure_postgresql13()
 # REQUIRE: DAEMON
 # KEYWORD: shutdown
 #
-# You will need to set some variables in /etc/rc.conf to start PostgreSQL:
+# You will need to set some variables in $PKGSRC_SYSCONFDIR/rc.conf to start PostgreSQL:
 #
 # pgsql=YES
 #
@@ -4667,10 +4667,6 @@ _devsetup_package_configure_postgresql13()
 #	pgsql_flags="-i -l"		# enables SSL connections
 #	pgsql_home="/path/to/home"	# path to pgsql database directory
 # See postmaster(1) for possible options.
-
-if [ -f /etc/rc.subr ]; then
-	. /etc/rc.subr
-fi
 
 name="pgsql"
 rcvar=\${name}
