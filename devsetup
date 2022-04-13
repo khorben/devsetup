@@ -36,11 +36,11 @@ GIT_FETCH="git fetch"
 GIT_MERGE="git merge"
 GREP="grep"
 INSTALL="install"
-LDAPADD=
 MKDIR="mkdir"
 PKG_DELETE=
 PSQL=
 RM="/bin/rm -f"
+SLAPADD=
 #settings
 BUILD_JOBS=8
 DEFAULT_ADDRESS="127.0.0.1"
@@ -112,11 +112,11 @@ VERBOSE=1
 [ -n "$HTTP_ADDRESS" ]		|| HTTP_ADDRESS="$DEFAULT_ADDRESS"
 [ -n "$IMAP_ADDRESS" ]		|| IMAP_ADDRESS="$DEFAULT_ADDRESS"
 [ -n "$LDAP_ADDRESS" ]		|| LDAP_ADDRESS="$DEFAULT_ADDRESS"
-[ -n "$LDAPADD" ]		|| LDAPADD="$PKGSRC_PREFIX/bin/ldapadd"
 [ -n "$PKG_DELETE" ]		|| PKG_DELETE="$PKGSRC_PREFIX/sbin/pkg_delete"
 [ -n "$PKGSRC_SYSCONFDIR" ]	|| PKGSRC_SYSCONFDIR="$PKGSRC_PREFIX/etc"
 [ -n "$POSTGRESQL_DATADIR" ]	|| POSTGRESQL_DATADIR="$PKGSRC_PREFIX/pgsql/data"
 [ -n "$PSQL" ]			|| PSQL="$PKGSRC_PREFIX/bin/psql"
+[ -n "$SLAPADD" ]		|| SLAPADD="$PKGSRC_PREFIX/sbin/slapadd"
 
 
 #functions
@@ -1481,17 +1481,7 @@ database monitor
 EOF
 
 	#database
-	#XXX run the slapd service for this to work
-	_devsetup_services_command "status" "slapd" > "$DEVNULL" ||
-		_devsetup_services_command "start" "slapd"
-	if [ $? -ne 0 ]; then
-		_error "$package: Could not start slapd for configuration"
-		return $?
-	fi
-	#XXX the password is provided on the command-line
-	$DEBUG $LDAPADD -w "$LDAP_ADMIN_PASSWORD" -x \
-		-H "ldap://$LDAP_ADDRESS:$LDAP_PORT" \
-		-D "cn=$LDAP_ADMIN_USERNAME,$LDAP_SUFFIX" << EOF
+	$DEBUG $SLAPADD -f "$PKGSRC_SYSCONFDIR/openldap/slapd.conf" << EOF
 dn: $LDAP_SUFFIX
 objectClass: dcObject
 objectClass: organization
