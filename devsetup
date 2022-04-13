@@ -61,7 +61,7 @@ LDAP_ADDRESS=
 LDAP_ADMIN_PASSWORD="ldapseed${HOME}padding"
 LDAP_ADMIN_USERNAME="admin"
 LDAP_PORT=3389
-LDAP_SUFFIX="dc=nopwn,dc=it"
+LDAP_SUFFIX="dc=example,dc=com"
 LDAP_SUFFIX_USERS="ou=Users,$LDAP_SUFFIX"
 PACKAGE_DEPENDENCIES="archivers/bzip2
 converters/libiconv
@@ -94,7 +94,7 @@ POSTGRESQL_ADMIN_DATABASE="template1"
 POSTGRESQL_ADMIN_PASSWORD="psqlseed${HOME}padding"
 POSTGRESQL_DATADIR=
 PROGNAME="devsetup"
-PROJECT_DOMAIN="nopwn.it"
+PROJECT_DOMAIN="example.com"
 SERVICES="dovecot
 nginx
 pgsql
