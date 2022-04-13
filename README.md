@@ -2,7 +2,7 @@
 
 ## Getting started
 
-The only script necessary is `devsetup`.
+The `devsetup` script contains everything required.
 
 ### Bootstrapping
 
