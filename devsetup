@@ -1494,6 +1494,10 @@ dc: ${PROJECT_DOMAIN%%.*}
 dn: cn=$LDAP_ADMIN_USERNAME,$LDAP_SUFFIX
 objectClass: organizationalRole
 cn: $LDAP_ADMIN_USERNAME
+
+dn: $LDAP_SUFFIX_USERS
+objectClass: organizationalUnit
+ou: ${LDAP_SUFFIX_USERS%%,*}
 EOF
 }
 
