@@ -1481,7 +1481,7 @@ database monitor
 EOF
 
 	#database
-	#XXX run the LDAP service for this to work
+	#XXX run the slapd service for this to work
 	_devsetup_services_command "status" "slapd" > "$DEVNULL" ||
 		_devsetup_services_command "start" "slapd"
 	if [ $? -ne 0 ]; then
