@@ -31,9 +31,9 @@ CHMOD="chmod"
 DEBUG="_debug"
 ECHO="/bin/echo"
 GIT_CHECKOUT="git checkout"
-GIT_CLONE="git clone"
 GIT_FETCH="git fetch"
 GIT_MERGE="git merge"
+GIT_SUBMODULE="git submodule"
 GREP="grep"
 INSTALL="install"
 MKDIR="mkdir"
@@ -89,7 +89,7 @@ PKGSRC_PREFIX=
 PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q1"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
-PKGSRC_REPOSITORY="$HOME/Projects/EdgeBSD/pkgsrc"
+PKGSRC_REPOSITORY="${0%devsetup}/repositories/pkgsrc"
 PKGSRC_SYSCONFDIR=
 POSTGRESQL_ADMIN_DATABASE="template1"
 POSTGRESQL_ADMIN_PASSWORD="psqlseed${HOME}padding"
@@ -5129,12 +5129,11 @@ _devsetup_repository_clone()
 		return $?
 	fi
 
-	#clone the repository
-	$DEBUG $GIT_CLONE \
-		--single-branch --branch "$PKGSRC_REPOSITORY_BRANCH" \
-		"$PKGSRC_REPOSITORY_REMOTE" "$PKGSRC_REPOSITORY"
+	#clone the repositories
+	$DEBUG $GIT_SUBMODULE init &&
+		$DEBUG $GIT_SUBMODULE update
 	if [ $? -ne 0 ]; then
-		_error "$PKGSRC_REPOSITORY_REMOTE: Could not clone the repository"
+		_error "$PKGSRC_REPOSITORY_REMOTE: Could not clone the repositories"
 		return $?
 	fi
 }
