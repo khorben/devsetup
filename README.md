@@ -111,12 +111,7 @@ devsetup: php_fpm: service restarted
 
 ## Assumptions
 
-1. `devsetup` expects to clone pkgsrc into `~/Projects/EdgeBSD/pkgsrc`
-2. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q1`
-
-In order to reduce the “surprise” effect of 1., Git submodules may be used in
-the future instead (e.g. in `repositories/pkgsrc`), together with our own
-internal projects, to be cloned in the `repositories` subfolder.
+1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q1`
 
 ## Services
 
