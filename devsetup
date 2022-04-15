@@ -4774,6 +4774,8 @@ _devsetup_package_configure_php74_phpldapadmin()
 #   '(&(gidNumber=811)(objectClass=groupOfNames))',
 #   '(|(uidNumber=200)(uidNumber=201))',
 #   'cn=callcenter,ou=Group,dc=example,dc=com'));
+\$servers->setValue('login','allowed_dns',array(
+    'cn=$LDAP_ADMIN_USERNAME,$LDAP_SUFFIX'));
 
 /* Set this if you dont want this LDAP server to show in the tree */
 // \$servers->setValue('server','visible',true);

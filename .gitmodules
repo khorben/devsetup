@@ -2,3 +2,6 @@
 	path = repositories/pkgsrc
 	url = https://git.edgebsd.org/EdgeBSD/pkgsrc.git
 	branch = pkgsrc-2022Q1
+[submodule "repositories/reporting"]
+	path = repositories/reporting
+	url = git@forge.anerd.eu:b.ware/reporting.git
