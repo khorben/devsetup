@@ -63,6 +63,7 @@ LDAP_ADMIN_PASSWORD="ldapseed${HOME}padding"
 LDAP_ADMIN_USERNAME="admin"
 LDAP_PORT=3389
 LDAP_SUFFIX="dc=example,dc=com"
+LDAP_SUFFIX_GROUPS="ou=Groups,$LDAP_SUFFIX"
 LDAP_SUFFIX_USERS="ou=Users,$LDAP_SUFFIX"
 PACKAGE_DEPENDENCIES="archivers/bzip2
 converters/libiconv
@@ -1494,6 +1495,10 @@ dc: ${PROJECT_DOMAIN%%.*}
 dn: cn=$LDAP_ADMIN_USERNAME,$LDAP_SUFFIX
 objectClass: organizationalRole
 cn: $LDAP_ADMIN_USERNAME
+
+dn: $LDAP_SUFFIX_GROUPS
+objectClass: organizationalUnit
+ou: ${LDAP_SUFFIX_GROUPS%%,*}
 
 dn: $LDAP_SUFFIX_USERS
 objectClass: organizationalUnit
