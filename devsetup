@@ -5222,7 +5222,12 @@ _devsetup_repository_update()
 
 	#detect the current branch
 	_info "$PKGSRC_REPOSITORY: Detecting the pkgsrc branch..."
-	head=$($CAT "$PKGSRC_REPOSITORY/.git/HEAD")
+	if [ -f "$PKGSRC_REPOSITORY/.git" ]; then
+		read gitdir location < "$PKGSRC_REPOSITORY/.git"
+		head=$($CAT "$PKGSRC_REPOSITORY/$location/HEAD")
+	else
+		head=$($CAT "$PKGSRC_REPOSITORY/.git/HEAD")
+	fi
 	case "${head#ref: }" in
 		refs/heads/*)
 			;;
