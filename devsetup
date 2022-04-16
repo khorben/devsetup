@@ -1476,8 +1476,8 @@ rootpw		$($SLAPPASSWD -s $LDAP_ADMIN_PASSWORD)
 # Mode 700 recommended.
 directory	$PKGSRC_PREFIX/var/openldap/openldap-data
 # Indices to maintain
-index	cn,sn,uid pres,eq,approx,sub
-index	objectClass	eq
+index	cn,sn,uid,mail	pres,eq,approx,sub
+index	objectClass	pres,eq
 
 #######################################################################
 # monitor database definitions
