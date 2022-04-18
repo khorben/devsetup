@@ -1557,6 +1557,11 @@ dn: $LDAP_SUFFIX_GROUPS
 objectClass: organizationalUnit
 ou: ${LDAP_SUFFIX_GROUPS%%,*}
 
+dn: cn=$PROJECT_DOMAIN,$LDAP_SUFFIX_GROUPS
+objectClass: posixGroup
+gidNumber: 500
+cn: $PROJECT_DOMAIN
+
 dn: $LDAP_SUFFIX_USERS
 objectClass: organizationalUnit
 ou: ${LDAP_SUFFIX_USERS%%,*}
