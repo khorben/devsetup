@@ -83,6 +83,8 @@ mail/roundcube-plugin-enigma
 mail/roundcube-plugin-password
 mail/roundcube-plugin-zipdownload
 net/pear-Net_LDAP2
+pkgtools/pkgdiff
+pkgtools/pkglint
 pkgtools/rc.subr
 security/gnupg
 textproc/py-m2r
