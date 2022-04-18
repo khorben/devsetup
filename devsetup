@@ -73,6 +73,7 @@ databases/phpldapadmin
 databases/phppgadmin
 databases/postgresql13
 devel/deforaos-configure
+devel/golint
 lang/go117
 mail/dovecot2
 mail/dovecot2-ldap
@@ -240,6 +241,10 @@ _devsetup_command_environment()
 		_usage "Invalid argument"
 		return $?
 	fi
+
+	#update $GOPATH
+	gopath="$PKGSRC_PREFIX/gopkg"
+	[ "$GOPATH" = "$gopath" ] || echo "export GOPATH=$gopath"
 
 	#update $PATH
 	newpath="$PKGSRC_PREFIX/sbin:$PKGSRC_PREFIX/bin"
