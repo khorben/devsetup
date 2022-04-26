@@ -1475,6 +1475,8 @@ moduleload	back_mdb.la
 #	Require 63-bit encryption for simple bind
 # security ssf=1 update_ssf=112 simple_bind=64
 
+disallow	bind_anon
+
 # Sample access control policy:
 #	Root DSE: allow anyone to read it
 #	Subschema (sub)entry DSE: allow anyone to read it
