@@ -87,6 +87,8 @@ net/pear-Net_LDAP2
 pkgtools/pkgdiff
 pkgtools/pkglint
 pkgtools/rc.subr
+security/cyrus-saslauthd
+security/cy2-plain
 security/gnupg
 textproc/py-m2r
 textproc/py-rst2pdf
@@ -109,6 +111,7 @@ SERVICES="dovecot
 nginx
 pgsql
 php_fpm
+saslauthd	-a ldap
 slapd	-4 -h ldap://$LDAP_ADDRESS:$LDAP_PORT/"
 VERBOSE=1
 
