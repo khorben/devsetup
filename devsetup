@@ -1180,6 +1180,7 @@ _devsetup_package_configure_nginx()
 		<ul>
 			<li><a href="/doc/cyrus-sasl">Cyrus SASL</a></li>
 			<li><a href="/doc/db4">DB4</a></li>
+			<li><a href="/doc/dovecot">Dovecot</a></li>
 			<li><a href="/doc/gtk-doc">Gtk-Doc books</a></li>
 			<li><a href="/doc/jadedoc">jadedoc</a></li>
 			<li><a href="/doc/libxml2">libxml2</a> (<a href="/doc/libxml2/tutorial">tutorial</a>)</li>
@@ -1264,8 +1265,13 @@ http {
 	}
 
 	location /doc/db4 {
-            alias   $PKGSRC_PREFIX/share/doc/db4;
-            index  index.html;
+	    alias  $PKGSRC_PREFIX/share/doc/db4;
+	    index  index.html;
+	}
+
+	location /doc/dovecot {
+	    alias   $PKGSRC_PREFIX/share/doc/dovecot/wiki;
+	    autoindex on;
 	}
 
         location /doc/gtk-doc {
