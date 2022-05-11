@@ -584,7 +584,8 @@ _devsetup_package_configure()
 	fi
 	funcname="${name//-/_}"
 	case "$name" in
-		dovecot\
+		cyrus-saslauthd\
+		|dovecot\
 		|esmtp\
 		|nginx\
 		|openldap\
@@ -599,6 +600,26 @@ _devsetup_package_configure()
 			;;
 	esac
 	return $res
+}
+
+_devsetup_package_configure_cyrus_saslauthd()
+{
+	#etc/sasl2
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/sasl2"
+	if [ $? -ne 0 ]; then
+		_error "cyrus-saslauthd: Could not create configuration directory"
+		return $?
+	fi
+
+	#etc/sasl2/saslauthd.conf
+	$CAT > "$PKGSRC_SYSCONFDIR/sasl2/saslauthd.conf" << EOF
+ldap_servers: ldap://$LDAP_ADDRESS:$LDAP_PORT
+ldap_bind_dn: cn=$LDAP_ADMIN_USERNAME,$LDAP_SUFFIX
+ldap_bind_pw: $LDAP_ADMIN_PASSWORD
+ldap_auth_method: bind
+ldap_search_base: $LDAP_SUFFIX_USERS
+ldap_filter: (&(uid=%u)(objectClass=posixAccount))
+EOF
 }
 
 _devsetup_package_configure_dovecot()
