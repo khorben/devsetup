@@ -97,7 +97,7 @@ www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q1"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q2"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
@@ -5947,20 +5947,20 @@ _devsetup_repository_update()
 	fi
 	case "${head#ref: }" in
 		refs/heads/*)
+			branch="${head#ref: }"
+			branch="${branch#refs/heads/}"
+			_info "$PKGSRC_REPOSITORY: Detected branch $branch"
 			;;
 		*)
-			echo "$head: ${head#ref: }"
-			_error "$PKGSRC_REPOSITORY: Could not determine status"
-			return $?
+			branch=
+			_warning "$PKGSRC_REPOSITORY: Could not determine status"
 			;;
 	esac
-	branch="${head#ref: }"
-	branch="${branch#refs/heads/}"
-	_info "$PKGSRC_REPOSITORY: Detected branch $branch"
 
 	#checkout the correct branch
 	if [ "$branch" != "$PKGSRC_REPOSITORY_BRANCH" ]; then
-		if [ -d "$PKGSRC_REPOSITORY/.git/refs/heads/$PKGSRC_REPOSITORY_BRANCH" ]; then
+		if [ -d "$PKGSRC_REPOSITORY/.git/refs/heads/$PKGSRC_REPOSITORY_BRANCH" \
+				-o -f "$PKGSRC_REPOSITORY/$location/refs/heads/$PKGSRC_REPOSITORY_BRANCH" ]; then
 			#update the current branch
 			_info "$PKGSRC_REPOSITORY: Updating the local branch..."
 			(cd "$PKGSRC_REPOSITORY" &&
@@ -6154,6 +6154,14 @@ _usage()
 	echo "  Starts, stops, checks, or restarts specific services, or the list of default" 1>&2
 	echo "  services." 1>&2
 	return 1
+}
+
+
+#warning
+_warning()
+{
+	echo "$PROGNAME: $@" 1>&2
+	return 3
 }
 
 
