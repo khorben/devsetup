@@ -589,7 +589,7 @@ _devsetup_package_configure()
 		|esmtp\
 		|nginx\
 		|openldap\
-		|php-fpm\
+		|php74-fpm\
 		|postgresql13\
 		|php74-phpldapadmin\
 		|php74-roundcube)
@@ -1600,7 +1600,7 @@ ou: ${LDAP_SUFFIX_USERS%%,*}
 EOF
 }
 
-_devsetup_package_configure_php_fpm()
+_devsetup_package_configure_php74_fpm()
 {
 	#etc/php.ini
 	$CAT > "$PKGSRC_SYSCONFDIR/php.ini" << EOF
