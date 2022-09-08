@@ -35,7 +35,7 @@ $ $(./devsetup environment)
     
 This should:
 
-* Prefix `$PATH` with `~/opt/pkgsrc-2022Q1/sbin:~/opt/pkgsrc-2022Q1/bin` if
+* Prefix `$PATH` with `~/opt/pkgsrc-2022Q2/sbin:~/opt/pkgsrc-2022Q2/bin` if
   necessary
 * Alias `devsetup` within the environment
 
@@ -111,7 +111,7 @@ devsetup: php_fpm: service restarted
 
 ## Assumptions
 
-1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q1`
+1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q2`
 
 ## Services
 
