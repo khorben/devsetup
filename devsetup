@@ -42,6 +42,7 @@ PSQL=
 RM="/bin/rm -f"
 SLAPADD=
 SLAPPASSWD=
+TR="tr"
 #settings
 BUILD_JOBS=8
 DEFAULT_ADDRESS="127.0.0.1"
@@ -582,7 +583,7 @@ _devsetup_package_configure()
 		_error "$package: Could not obtain the package name"
 		return $?
 	fi
-	funcname="${name//-/_}"
+	funcname="$(echo "$name" | $TR - _)"
 	case "$name" in
 		cyrus-saslauthd\
 		|dovecot\
