@@ -250,6 +250,25 @@ _devsetup_command_environment()
 	gopath="$PKGSRC_PREFIX/gopkg"
 	[ "$GOPATH" = "$gopath" ] || echo "export GOPATH=$gopath"
 
+	#update $MANPATH
+	newpath="$PKGSRC_PREFIX/man"
+	oldifs="$IFS"
+	IFS=:
+	for p in $MANPATH; do
+		case "$p" in
+			$PKGSRC_PREFIX/man)
+				;;
+			*)
+				newpath="$newpath:$p"
+				;;
+		esac
+	done
+	unset p
+	IFS="$oldifs"
+	if [ "$newpath" != "$MANPATH" ]; then
+		echo "export MANPATH=$newpath"
+	fi
+
 	#update $PATH
 	newpath="$PKGSRC_PREFIX/sbin:$PKGSRC_PREFIX/bin"
 	oldifs="$IFS"
@@ -263,6 +282,7 @@ _devsetup_command_environment()
 				;;
 		esac
 	done
+	unset p
 	IFS="$oldifs"
 	if [ "$newpath" != "$PATH" ]; then
 		echo "export PATH=$newpath"
