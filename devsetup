@@ -6174,6 +6174,10 @@ _usage()
 	echo "$PROGNAME start|stop|status|restart [-qv][service...]" 1>&2
 	echo "  Starts, stops, checks, or restarts specific services, or the list of default" 1>&2
 	echo "  services." 1>&2
+	echo 1>&2
+	echo "Common flags:" 1>&2
+	echo "  -q	Operate in quiet mode" 1>&2
+	echo "  -v	Be more verbose" 1>&2
 	return 1
 }
 
