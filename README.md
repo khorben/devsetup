@@ -35,6 +35,7 @@ $ $(./devsetup environment)
     
 This should:
 
+* Prefix `$MANPATH` with `~/opt/pkgsrc-2022Q2/man` if necessary
 * Prefix `$PATH` with `~/opt/pkgsrc-2022Q2/sbin:~/opt/pkgsrc-2022Q2/bin` if
   necessary
 * Alias `devsetup` within the environment
