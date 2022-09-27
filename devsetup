@@ -75,7 +75,7 @@ databases/phppgadmin
 databases/postgresql13
 devel/deforaos-configure
 devel/golint
-lang/go117
+lang/go118
 mail/dovecot2
 mail/dovecot2-ldap
 mail/esmtp
