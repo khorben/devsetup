@@ -221,7 +221,7 @@ _devsetup_command_configure()
 	[ $# -ge 1 ] && packages="$@"
 
 	_devsetup_configure_packages "$packages" &&
-	_devsetup_configure_services
+		_devsetup_configure_services
 }
 
 _devsetup_command_environment()
