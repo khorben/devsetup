@@ -36,6 +36,7 @@ GIT_MERGE="git merge"
 GIT_SUBMODULE="git submodule"
 GREP="grep"
 INSTALL="install"
+LN="/bin/ln -f"
 MKDIR="mkdir"
 PKG_DELETE=
 PSQL=
@@ -608,6 +609,7 @@ _devsetup_package_configure()
 		cyrus-saslauthd\
 		|dovecot\
 		|esmtp\
+		|go118\
 		|nginx\
 		|openldap\
 		|php74-fpm\
@@ -1169,6 +1171,12 @@ _devsetup_package_configure_esmtp()
 mda = "$PKGSRC_PREFIX/bin/deliver"
 force_mda = "$USER"
 EOF
+}
+
+_devsetup_package_configure_go118()
+{
+	#bin/go
+	$DEBUG $LN -s "go118" "$PKGSRC_PREFIX/bin/go"
 }
 
 _devsetup_package_configure_nginx()
