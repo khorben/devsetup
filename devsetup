@@ -6094,6 +6094,7 @@ _devsetup_service_configure()
 	options="$2"
 	rcconf="$PKGSRC_SYSCONFDIR/rc.conf"
 	rcdir="$PKGSRC_SYSCONFDIR/rc.d"
+	rcvar="$(echo "$service" | $TR - _)"
 	rcscript="$PKGSRC_PREFIX/share/examples/rc.d/$service"
 
 	_info "$service: Configuring service..."
@@ -6113,10 +6114,9 @@ _devsetup_service_configure()
 	fi
 
 	#enable the service
-	$DEBUG $GREP -q "^$service" "$rcconf"
-	if [ $? -ne 0 ]; then
-		($ECHO -n "$service=YES"
-		[ -n "$options" ] && $ECHO -n "	${service}_flags=\"$options\""
+	if ! $DEBUG $GREP -q "^$rcvar" "$rcconf"; then
+		($ECHO -n "$rcvar=YES"
+		[ -n "$options" ] && $ECHO -n "	${rcvar}_flags=\"$options\""
 		echo) >> "$rcconf"
 	fi
 
