@@ -52,7 +52,7 @@ FASTCGI_ADDRESS="127.0.0.1"
 FASTCGI_PORT=9000
 GROUP="$USER"
 case $($UNAME) in
-	Darwin)
+	"Darwin")
 		GROUP="staff"
 		;;
 esac
