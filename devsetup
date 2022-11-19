@@ -48,6 +48,7 @@ TR="tr"
 BUILD_JOBS=8
 DEFAULT_ADDRESS="127.0.0.1"
 DEVNULL="/dev/null"
+DRYRUN=0
 FASTCGI_ADDRESS="127.0.0.1"
 FASTCGI_PORT=9000
 GROUP="$USER"
@@ -140,7 +141,7 @@ VERBOSE=1
 _debug()
 {
 	[ $VERBOSE -gt 2 ] && echo "$@" 1>&2
-	"$@"
+	[ $DRYRUN -ne 0 ] || "$@"
 }
 
 
@@ -176,8 +177,11 @@ _devsetup()
 
 _devsetup_command_clean()
 {
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -204,8 +208,11 @@ _devsetup_command_configure()
 {
 	packages="$PACKAGE_DEPENDENCIES"
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -227,8 +234,11 @@ _devsetup_command_configure()
 
 _devsetup_command_environment()
 {
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -302,8 +312,11 @@ _devsetup_command_environment()
 
 _devsetup_command_init()
 {
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -327,8 +340,11 @@ _devsetup_command_install()
 {
 	packages="$PACKAGE_DEPENDENCIES"
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -349,8 +365,11 @@ _devsetup_command_install()
 
 _devsetup_command_restart()
 {
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -383,8 +402,11 @@ _devsetup_command_start()
 {
 	services=
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -416,8 +438,11 @@ _devsetup_command_status()
 {
 	services=
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -449,8 +474,11 @@ _devsetup_command_stop()
 {
 	services=
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -480,8 +508,11 @@ EOF
 
 _devsetup_command_update()
 {
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -508,8 +539,11 @@ _devsetup_command_uninstall()
 {
 	packages="$PACKAGE_DEPENDENCIES"
 
-	while getopts "qv" name; do
+	while getopts "nqv" name; do
 		case "$name" in
+			n)
+				DRYRUN=1
+				;;
 			q)
 				VERBOSE=0
 				;;
@@ -6178,28 +6212,29 @@ _info()
 _usage()
 {
 	[ $# -ge 1 ] && _error "$@"
-	echo "Usage: $PROGNAME clean|init|environment [-qv]" 1>&2
-	echo "       $PROGNAME install|configure|update|uninstall [-qv][package...]" 1>&2
-	echo "       $PROGNAME start|stop|status|restart [-qv][service...]" 1>&2
+	echo "Usage: $PROGNAME clean|init|environment [-nqv]" 1>&2
+	echo "       $PROGNAME install|configure|update|uninstall [-nqv][package...]" 1>&2
+	echo "       $PROGNAME start|stop|status|restart [-nqv][service...]" 1>&2
 	echo 1>&2
-	echo "$PROGNAME clean [-qv]" 1>&2
+	echo "$PROGNAME clean [-nqv]" 1>&2
 	echo "  Removes the temporary files resulting from compilation." 1>&2
 	echo 1>&2
-	echo "$PROGNAME init [-qv]" 1>&2
+	echo "$PROGNAME init [-nqv]" 1>&2
 	echo "  Clones the package repositories and installs the default packages." 1>&2
 	echo 1>&2
-	echo "$PROGNAME environment [-qv]" 1>&2
+	echo "$PROGNAME environment [-nqv]" 1>&2
 	echo "  Outputs variables needing to be updated to help work with $PROGNAME." 1>&2
 	echo 1>&2
 	echo "$PROGNAME install|configure|update|uninstall [-qv][package...]" 1>&2
 	echo "  Installs, configures, updates, or uninstalls specific packages, or the list of" 1>&2
 	echo "  default packages." 1>&2
 	echo 1>&2
-	echo "$PROGNAME start|stop|status|restart [-qv][service...]" 1>&2
+	echo "$PROGNAME start|stop|status|restart [-nqv][service...]" 1>&2
 	echo "  Starts, stops, checks, or restarts specific services, or the list of default" 1>&2
 	echo "  services." 1>&2
 	echo 1>&2
 	echo "Common flags:" 1>&2
+	echo "  -n	Do not actually run the commands used" 1>&2
 	echo "  -q	Operate in quiet mode" 1>&2
 	echo "  -v	Be more verbose" 1>&2
 	return 1
