@@ -6110,9 +6110,7 @@ _devsetup_services_command()
 			return $?
 		fi
 		_info "$service: $action service..."
-		"$rcscript" "$command"
-		res=$?
-		if [ $res -ne 0 ]; then
+		if ! $DEBUG "$rcscript" "$command"; then
 			_error "$service: service $failure"
 			ret=$?
 		else
