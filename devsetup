@@ -4470,7 +4470,7 @@ EOF
 		_error "$package: Could not start pgsql for configuration"
 		return $?
 	fi
-	echo "ALTER ROLE $USER \
+	echo "ALTER ROLE \"$USER\" \
 		WITH ENCRYPTED PASSWORD '$POSTGRESQL_ADMIN_PASSWORD'" \
 		| $DEBUG $PSQL "$POSTGRESQL_ADMIN_DATABASE"
 }
