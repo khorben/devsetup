@@ -74,7 +74,7 @@ databases/openldap
 databases/openldap-extra-schemas
 databases/phpldapadmin
 databases/phppgadmin
-databases/postgresql13
+databases/postgresql14
 devel/deforaos-configure
 devel/golint
 lang/go118
@@ -100,7 +100,7 @@ www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q2"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q3"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
@@ -647,7 +647,7 @@ _devsetup_package_configure()
 		|nginx\
 		|openldap\
 		|php74-fpm\
-		|postgresql13\
+		|postgresql14\
 		|php74-phpldapadmin\
 		|php74-roundcube)
 			_info "$package: Configuring package... ($name)"
@@ -4208,7 +4208,7 @@ pm.max_spare_servers = 3
 EOF
 }
 
-_devsetup_package_configure_postgresql13()
+_devsetup_package_configure_postgresql14()
 {
 	#etc/rc.d/pgsql
 	$CAT > "$PKGSRC_SYSCONFDIR/rc.d/pgsql" << EOF
@@ -5946,13 +5946,15 @@ _devsetup_repository_clone()
 _devsetup_repository_configure()
 {
 	#etc/mk.conf
+	distdir="$PKGSRC_REPOSITORY/distfiles"
+	[ "${distdir#/}" != "$distdir" ] || distdir="$PWD/${distdir#./}"
 	$CAT >> "$PKGSRC_SYSCONFDIR/mk.conf" << EOF
 
 #devsetup
 .ifdef BSD_PKG_MK
 WRKOBJDIR=		\${LOCALBASE}/work
 
-DISTDIR=		$PKGSRC_REPOSITORY/distfiles
+DISTDIR=		$distdir
 MAKE_JOBS=		$BUILD_JOBS
 #MASTER_SORT=		.de .org
 #MASTER_SORT_REGEX=	berlin
@@ -5968,6 +5970,7 @@ PREFER.zlib=		pkgsrc
 PKG_OPTIONS.roundcube+=	nginx
 PKG_OPTIONS.roundcube+=	sqlite
 
+ACCEPTABLE_LICENSES+=	esdl-license
 ACCEPTABLE_LICENSES+=	gnu-agpl-v3
 ACCEPTABLE_LICENSES+=	unrar-license
 .endif
