@@ -74,7 +74,7 @@ databases/openldap
 databases/openldap-extra-schemas
 databases/phpldapadmin
 databases/phppgadmin
-databases/postgresql13
+databases/postgresql14
 devel/deforaos-configure
 devel/golint
 lang/go118
@@ -647,7 +647,7 @@ _devsetup_package_configure()
 		|nginx\
 		|openldap\
 		|php74-fpm\
-		|postgresql13\
+		|postgresql14\
 		|php74-phpldapadmin\
 		|php74-roundcube)
 			_info "$package: Configuring package... ($name)"
@@ -4208,7 +4208,7 @@ pm.max_spare_servers = 3
 EOF
 }
 
-_devsetup_package_configure_postgresql13()
+_devsetup_package_configure_postgresql14()
 {
 	#etc/rc.d/pgsql
 	$CAT > "$PKGSRC_SYSCONFDIR/rc.d/pgsql" << EOF
