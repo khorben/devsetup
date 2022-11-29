@@ -5968,6 +5968,7 @@ PREFER.zlib=		pkgsrc
 PKG_OPTIONS.roundcube+=	nginx
 PKG_OPTIONS.roundcube+=	sqlite
 
+ACCEPTABLE_LICENSES+=	esdl-license
 ACCEPTABLE_LICENSES+=	gnu-agpl-v3
 ACCEPTABLE_LICENSES+=	unrar-license
 .endif
