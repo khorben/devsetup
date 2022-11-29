@@ -5946,13 +5946,15 @@ _devsetup_repository_clone()
 _devsetup_repository_configure()
 {
 	#etc/mk.conf
+	distdir="$PKGSRC_REPOSITORY/distfiles"
+	[ "${distdir#/}" != "$distdir" ] || distdir="$PWD/${distdir#./}"
 	$CAT >> "$PKGSRC_SYSCONFDIR/mk.conf" << EOF
 
 #devsetup
 .ifdef BSD_PKG_MK
 WRKOBJDIR=		\${LOCALBASE}/work
 
-DISTDIR=		$PKGSRC_REPOSITORY/distfiles
+DISTDIR=		$distdir
 MAKE_JOBS=		$BUILD_JOBS
 #MASTER_SORT=		.de .org
 #MASTER_SORT_REGEX=	berlin
