@@ -1219,15 +1219,15 @@ _devsetup_package_configure_go118()
 _devsetup_package_configure_nginx()
 {
 	#var/www/htdocs
-	$DEBUG $MKDIR -p -- "$PKGSRC_PREFIX/var/www/htdocs"
+	$DEBUG $MKDIR -p -- "$PKGSRC_PREFIX/var/www/htdocs/devsetup"
 	if [ $? -ne 0 ]; then
 		_error "nginx: Could not create root directory"
 		return $?
 	fi
 
-	#var/www/htdocs/index.html
-	if [ ! -f "$PKGSRC_PREFIX/var/www/htdocs/index.html" ]; then
-		$CAT > "$PKGSRC_PREFIX/var/www/htdocs/index.html" << EOF
+	#var/www/htdocs/devsetup/index.html
+	if [ ! -f "$PKGSRC_PREFIX/var/www/htdocs/devsetup/index.html" ]; then
+		$CAT > "$PKGSRC_PREFIX/var/www/htdocs/devsetup/index.html" << EOF
 <!DOCTYPE html>
 <html>
 	<head>

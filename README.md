@@ -121,7 +121,7 @@ The services running by default are:
 | *Name*    | *Software* | *Package*                | *Address*        | *Comments*                                           |
 | --------- | ---------- | ------------------------ | ---------------- | ---------------------------------------------------- |
 | `dovecot` | Dovecot    | `mail/dovecot2`          | `127.0.0.1:1143` | [webmail](http://127.0.0.1:8080/webmail)             |
-| `nginx`   | Nginx      | `www/nginx`              | `127.0.0.1:8080` | [default page](http://127.0.0.1:8080)                |
+| `nginx`   | Nginx      | `www/nginx`              | `127.0.0.1:8080` | [default page](http://127.0.0.1:8080/devsetup)       |
 | `pgsql`   | PostgreSQL | `databases/postgresql13` | `127.0.0.1:5432` | [administration](http://127.0.0.1:8080/phppgadmin)   |
 | `php_fpm` | PHP-FPM    | `www/php-fpm`            | `127.0.0.1:9000` | Fast CGI                                             |
 | `slapd`   | OpenLDAP   | `databases/openldap`     | `127.0.0.1:3389` | [administration](http://127.0.0.1:8080/phpldapadmin) |
