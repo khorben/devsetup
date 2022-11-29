@@ -64,9 +64,12 @@ IMAP_PORT=1143
 LDAP_ADDRESS=
 LDAP_ADMIN_PASSWORD="ldapseed${HOME}padding"
 LDAP_ADMIN_USERNAME="admin"
+LDAP_DOVECOT_PASSWORD="dovecotseed${HOME}padding"
+LDAP_DOVECOT_USERNAME="dovecot"
 LDAP_PORT=3389
 LDAP_SUFFIX="dc=example,dc=com"
 LDAP_SUFFIX_GROUPS="ou=Groups,$LDAP_SUFFIX"
+LDAP_SUFFIX_SYSTEM="ou=System,$LDAP_SUFFIX"
 LDAP_SUFFIX_USERS="ou=Users,$LDAP_SUFFIX"
 PACKAGE_DEPENDENCIES="archivers/bzip2
 converters/libiconv
@@ -964,10 +967,10 @@ hosts = $LDAP_ADDRESS:$LDAP_PORT
 
 # Distinguished Name - the username used to login to the LDAP server.
 # Leave it commented out to bind anonymously (useful with auth_bind=yes).
-#dn =
+dn = uid=$LDAP_DOVECOT_USERNAME,$LDAP_SUFFIX_SYSTEM
 
 # Password for LDAP server, if dn is specified.
-#dnpass =
+dnpass = $LDAP_DOVECOT_PASSWORD
 
 # Use SASL binding instead of the simple binding. Note that this changes
 # ldap_version automatically to be 3 if it's lower.
@@ -1656,6 +1659,20 @@ dn: cn=$PROJECT_DOMAIN,$LDAP_SUFFIX_GROUPS
 objectClass: posixGroup
 gidNumber: 500
 cn: $PROJECT_DOMAIN
+
+dn: $LDAP_SUFFIX_SYSTEM
+objectClass: organizationalUnit
+ou: ${LDAP_SUFFIX_SYSTEM%%,*}
+
+dn: uid=$LDAP_DOVECOT_USERNAME,$LDAP_SUFFIX_SYSTEM
+homeDirectory: /nonexistent
+objectClass: posixAccount
+objectClass: account
+objectClass: top
+gidNumber: 500
+uidNumber: 1001
+cn: $LDAP_DOVECOT_USERNAME
+userPassword: $(_devsetup_password_hash ldap "$LDAP_DOVECOT_PASSWORD")
 
 dn: $LDAP_SUFFIX_USERS
 objectClass: organizationalUnit
