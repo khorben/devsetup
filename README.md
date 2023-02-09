@@ -35,8 +35,8 @@ $ $(./devsetup environment)
     
 This should:
 
-* Prefix `$MANPATH` with `~/opt/pkgsrc-2022Q2/man` if necessary
-* Prefix `$PATH` with `~/opt/pkgsrc-2022Q2/sbin:~/opt/pkgsrc-2022Q2/bin` if
+* Prefix `$MANPATH` with `~/opt/pkgsrc-2022Q4/man` if necessary
+* Prefix `$PATH` with `~/opt/pkgsrc-2022Q4/sbin:~/opt/pkgsrc-2022Q4/bin` if
   necessary
 * Alias `devsetup` within the environment
 
@@ -112,7 +112,7 @@ devsetup: php_fpm: service restarted
 
 ## Assumptions
 
-1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q2`
+1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q4`
 
 ## Services
 
