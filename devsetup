@@ -103,7 +103,7 @@ www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q3"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q4"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
@@ -6030,7 +6030,8 @@ _devsetup_repository_update()
 	#update the repository
 	_info "$PKGSRC_REPOSITORY: Updating pkgsrc repository..."
 	(cd "$PKGSRC_REPOSITORY" &&
-		$DEBUG $GIT_FETCH "$PKGSRC_REPOSITORY_REMOTE_ID")
+		$DEBUG $GIT_FETCH "$PKGSRC_REPOSITORY_REMOTE_ID") # &&
+		#$DEBUG $GIT_CHECKOUT "$PKGSRC_REPOSITORY_BRANCH")
 	if [ $? -ne 0 ]; then
 		_error "$PKGSRC_REPOSITORY: Could not update the repository"
 		return $?
@@ -6040,8 +6041,12 @@ _devsetup_repository_update()
 	_info "$PKGSRC_REPOSITORY: Detecting the pkgsrc branch..."
 	if [ -f "$PKGSRC_REPOSITORY/.git" ]; then
 		read gitdir location < "$PKGSRC_REPOSITORY/.git"
+		#echo $CAT "$PKGSRC_REPOSITORY/$location/HEAD"
+		#exit 0
 		head=$($CAT "$PKGSRC_REPOSITORY/$location/HEAD")
 	else
+		#echo $CAT "$PKGSRC_REPOSITORY/.git/HEAD"
+		#exit 0
 		head=$($CAT "$PKGSRC_REPOSITORY/.git/HEAD")
 	fi
 	case "${head#ref: }" in
@@ -6051,6 +6056,7 @@ _devsetup_repository_update()
 			_info "$PKGSRC_REPOSITORY: Detected branch $branch"
 			;;
 		*)
+			#echo "$head: ${head#ref: }"
 			branch=
 			_warning "$PKGSRC_REPOSITORY: Could not determine status"
 			;;
@@ -6088,6 +6094,8 @@ _devsetup_repository_update()
 		[ $ret -eq 0 ] || return $ret
 		_info "$PKGSRC_REPOSITORY: pkgsrc bootstrapped"
 	fi
+
+	#FIXME install the default packages
 }
 
 _devsetup_services_command()
