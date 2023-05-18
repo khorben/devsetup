@@ -1,5 +1,5 @@
 #!/bin/sh
-#Copyright (c) 2022 Pierre Pronchery <khorben@defora.org>
+#Copyright (c) 2023 Pierre Pronchery <khorben@defora.org>
 #
 #Redistribution and use in source and binary forms, with or without
 #modification, are permitted provided that the following conditions are met:
@@ -103,7 +103,7 @@ www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2022Q4"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2023Q1"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
