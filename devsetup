@@ -4227,6 +4227,8 @@ EOF
 
 _devsetup_package_configure_postgresql14()
 {
+	package="$1"
+
 	#etc/rc.d/pgsql
 	$CAT > "$PKGSRC_SYSCONFDIR/rc.d/pgsql" << EOF
 #!/bin/sh
@@ -4360,6 +4362,13 @@ EOF
 		return $?
 	fi
 
+	#$POSTGRESQL_DATADIR
+	$DEBUG $MKDIR -p -- "$POSTGRESQL_DATADIR"
+	if [ $? -ne 0 ]; then
+		_error "$package: Could not create data directory"
+		return $?
+	fi
+
 	#$POSTGRESQL_DATADIR/pg_hba.conf
 	$CAT > "$POSTGRESQL_DATADIR/pg_hba.conf" << EOF
 # PostgreSQL Client Authentication Configuration File
@@ -4461,6 +4470,10 @@ local   all             all                                     password
 #host    replication     all             127.0.0.1/32            trust
 #host    replication     all             ::1/128                 trust
 EOF
+	if [ $? -ne 0 ]; then
+		_error "$package: Could not create the configuration file"
+		return $?
+	fi
 
 	#database
 	#XXX run the pgsql service for this to work
