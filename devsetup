@@ -724,6 +724,13 @@ EOF
 
 _devsetup_package_configure_dovecot()
 {
+	#etc/dovecot/conf.d
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/dovecot/conf.d"
+	if [ $? -ne 0 ]; then
+		_error "dovecot: Could not create configuration directory"
+		return $?
+	fi
+
 	#etc/dovecot/conf.d/10-ssl.conf
 	$CAT > "$PKGSRC_SYSCONFDIR/dovecot/conf.d/10-auth.conf" << EOF
 ##
@@ -1722,6 +1729,13 @@ EOF
 
 _devsetup_package_configure_php74_fpm()
 {
+	#etc
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR"
+	if [ $? -ne 0 ]; then
+		_error "php_fpm: Could not create configuration directory"
+		return $?
+	fi
+
 	#etc/php.ini
 	$CAT > "$PKGSRC_SYSCONFDIR/php.ini" << EOF
 [PHP]
@@ -5120,6 +5134,13 @@ _devsetup_package_configure_php74_phpldapadmin()
 ?>
 EOF
 
+	#share/phpldapadmin/config
+	$DEBUG $MKDIR -p -- "$PKGSRC_PREFIX/share/phpldapadmin/config"
+	if [ $? -ne 0 ]; then
+		_error "phpldapadmin: Could not create static configuration directory"
+		return $?
+	fi
+
 	#share/phpldapadmin/config/config.php
 	echo "<?php require('$PKGSRC_SYSCONFDIR/phpldapadmin/config.php'); ?>" \
 		> "$PKGSRC_PREFIX/share/phpldapadmin/config/config.php"
@@ -5131,6 +5152,13 @@ _devsetup_package_configure_php74_roundcube()
 	$DEBUG $MKDIR -p -- "$PKGSRC_PREFIX/var/www/roundcube"
 	if [ $? -ne 0 ]; then
 		_error "roundcube: Could not create database directory"
+		return $?
+	fi
+
+	#etc/roundcube
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/roundcube"
+	if [ $? -ne 0 ]; then
+		_error "roundcube: Could not create configuration directory"
 		return $?
 	fi
 
