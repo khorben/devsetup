@@ -4544,7 +4544,7 @@ EOF
 
 _devsetup_package_configure_php74_phpldapadmin()
 {
-	#etc/openldap
+	#etc/phpldapadmin
 	#XXX create this directory with the package
 	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/phpldapadmin"
 	if [ $? -ne 0 ]; then
@@ -4552,7 +4552,7 @@ _devsetup_package_configure_php74_phpldapadmin()
 		return $?
 	fi
 
-	#etc/openldap/slapd.conf
+	#etc/phpldapadmin/config.php
 	$CAT > "$PKGSRC_SYSCONFDIR/phpldapadmin/config.php" << EOF
 <?php
 /** NOTE **
