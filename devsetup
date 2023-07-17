@@ -6332,7 +6332,7 @@ _usage()
 	echo "$PROGNAME environment [-nqv]" 1>&2
 	echo "  Outputs variables needing to be updated to help work with $PROGNAME." 1>&2
 	echo 1>&2
-	echo "$PROGNAME install|configure|update|uninstall [-qv][package...]" 1>&2
+	echo "$PROGNAME install|configure|update|uninstall [-nqv][package...]" 1>&2
 	echo "  Installs, configures, updates, or uninstalls specific packages, or the list of" 1>&2
 	echo "  default packages." 1>&2
 	echo 1>&2
