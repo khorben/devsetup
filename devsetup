@@ -232,6 +232,7 @@ _devsetup_command_configure()
 	[ $# -ge 1 ] && packages="$@"
 
 	_devsetup_configure_packages "$packages" &&
+		_devsetup_configure_submodules "$SUBMODULE_DEPENDENCIES" &&
 		_devsetup_configure_services
 }
 
@@ -601,6 +602,45 @@ $SERVICES
 EOF
 	[ $ret -ne 0 ] && return $?
 	_info "Services configured"
+	return $ret
+}
+
+_devsetup_configure_submodules()
+{
+	ret=0
+	submodules="$@"
+
+	_info "Configuring the sub-modules..."
+	for submodule in $submodules; do
+		[ -n "$submodule" ] || continue
+		PATH="$PKGSRC_PREFIX/bin:$PATH" \
+			_configure_submodules_repository "$submodule"
+		r=$?
+		[ $r -eq 0 ] || ret=$r
+	done
+	[ $ret -ne 0 ] && return $?
+	_info "Sub-modules configured"
+	return $ret
+}
+
+_configure_submodules_repository()
+{
+	ret=0
+	repository="$1"
+	path="${0%devsetup}/repositories/$repository"
+
+	if [ ! -d "$path" ]; then
+		_error "$repository: Sub-module not found"
+		return $?
+	fi
+	if [ -f "$path/Makefile" ]; then
+		(cd "$path" && $DEBUG $BMAKE \
+			PREFIX="$PKGSRC_PREFIX" \
+			install)
+		ret=$?
+	else
+		_warning "$repository: Sub-module not configured"
+	fi
 	return $ret
 }
 
