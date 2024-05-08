@@ -687,10 +687,10 @@ _devsetup_package_configure()
 		|go118\
 		|nginx\
 		|openldap\
-		|php74-fpm\
+		|php82-fpm\
 		|postgresql14\
-		|php74-phpldapadmin\
-		|php74-roundcube)
+		|php82-phpldapadmin\
+		|php82-roundcube)
 			_info "$package: Configuring package... ($name)"
 			"_devsetup_package_configure_$funcname" "$package"
 			res=$?
@@ -1725,7 +1725,7 @@ ou: ${LDAP_SUFFIX_USERS%%,*}
 EOF
 }
 
-_devsetup_package_configure_php74_fpm()
+_devsetup_package_configure_php82_fpm()
 {
 	#etc
 	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR"
@@ -4540,7 +4540,7 @@ EOF
 		| $DEBUG $PSQL "$POSTGRESQL_ADMIN_DATABASE"
 }
 
-_devsetup_package_configure_php74_phpldapadmin()
+_devsetup_package_configure_php82_phpldapadmin()
 {
 	#etc/phpldapadmin
 	#XXX create this directory with the package
@@ -5144,7 +5144,7 @@ EOF
 		> "$PKGSRC_PREFIX/share/phpldapadmin/config/config.php"
 }
 
-_devsetup_package_configure_php74_roundcube()
+_devsetup_package_configure_php82_roundcube()
 {
 	#var/www/roundcube
 	$DEBUG $MKDIR -p -- "$PKGSRC_PREFIX/var/www/roundcube"
