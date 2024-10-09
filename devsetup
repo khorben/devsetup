@@ -80,7 +80,7 @@ databases/phppgadmin
 databases/postgresql14
 devel/deforaos-configure
 devel/golint
-lang/go118
+lang/go122
 mail/dovecot2
 mail/dovecot2-ldap
 mail/esmtp
@@ -684,7 +684,7 @@ _devsetup_package_configure()
 		cyrus-saslauthd\
 		|dovecot\
 		|esmtp\
-		|go118\
+		|go122\
 		|nginx\
 		|openldap\
 		|php82-fpm\
@@ -1255,10 +1255,10 @@ force_mda = "$USER"
 EOF
 }
 
-_devsetup_package_configure_go118()
+_devsetup_package_configure_go122()
 {
 	#bin/go
-	$DEBUG $LN -s "go118" "$PKGSRC_PREFIX/bin/go"
+	$DEBUG $LN -s "go122" "$PKGSRC_PREFIX/bin/go"
 }
 
 _devsetup_package_configure_nginx()
