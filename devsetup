@@ -101,7 +101,7 @@ www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2024Q2"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2024Q3"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
