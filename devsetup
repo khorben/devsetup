@@ -77,7 +77,7 @@ databases/openldap
 databases/openldap-extra-schemas
 databases/phpldapadmin
 databases/phppgadmin
-databases/postgresql14
+databases/postgresql16
 devel/deforaos-configure
 devel/golint
 lang/go122
@@ -688,7 +688,7 @@ _devsetup_package_configure()
 		|nginx\
 		|openldap\
 		|php82-fpm\
-		|postgresql14\
+		|postgresql16\
 		|php82-phpldapadmin\
 		|php82-roundcube)
 			_info "$package: Configuring package... ($name)"
@@ -1727,15 +1727,15 @@ EOF
 
 _devsetup_package_configure_php82_fpm()
 {
-	#etc
-	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/php-fpm.d"
+	#etc/php/8.2/php-fpm.d
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/php/8.2/php-fpm.d"
 	if [ $? -ne 0 ]; then
 		_error "php_fpm: Could not create configuration directory"
 		return $?
 	fi
 
-	#etc/php.ini
-	$CAT > "$PKGSRC_SYSCONFDIR/php.ini" << EOF
+	#etc/php/8.2/php.ini
+	$CAT > "$PKGSRC_SYSCONFDIR/php/8.2/php.ini" << EOF
 [PHP]
 
 ;;;;;;;;;;;;;;;;;;;
@@ -3686,8 +3686,8 @@ ldap.max_links = -1
 ;ffi.preload=
 EOF
 
-	#etc/php-fpm.conf
-	$CAT > "$PKGSRC_SYSCONFDIR/php-fpm.conf" << EOF
+	#etc/php/8.2/php-fpm.conf
+	$CAT > "$PKGSRC_SYSCONFDIR/php/8.2/php-fpm.conf" << EOF
 ;;;;;;;;;;;;;;;;;;;;;
 ; FPM Configuration ;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -3833,8 +3833,8 @@ pid = run/php-fpm.pid
 include=$PKGSRC_SYSCONFDIR/php-fpm.d/*.conf
 EOF
 
-	#etc/php-fpm.d/www.conf
-	$CAT > "$PKGSRC_SYSCONFDIR/php-fpm.d/www.conf" << EOF
+	#etc/php/8.2/php-fpm.d/www.conf
+	$CAT > "$PKGSRC_SYSCONFDIR/php/8.2/php-fpm.d/www.conf" << EOF
 ; Start a new pool named 'www'.
 ; the variable \$pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -4277,7 +4277,7 @@ pm.max_spare_servers = 3
 EOF
 }
 
-_devsetup_package_configure_postgresql14()
+_devsetup_package_configure_postgresql16()
 {
 	package="$1"
 
