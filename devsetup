@@ -114,7 +114,7 @@ PROJECT_DOMAIN="example.com"
 SERVICES="dovecot
 nginx
 pgsql
-php_fpm
+php_fpm82
 saslauthd	-a ldap
 slapd	-4 -h ldap://$LDAP_ADDRESS:$LDAP_PORT/"
 VERBOSE=1
@@ -1728,7 +1728,7 @@ EOF
 _devsetup_package_configure_php82_fpm()
 {
 	#etc
-	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR"
+	$DEBUG $MKDIR -p -- "$PKGSRC_SYSCONFDIR/php-fpm.d"
 	if [ $? -ne 0 ]; then
 		_error "php_fpm: Could not create configuration directory"
 		return $?
