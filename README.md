@@ -35,8 +35,8 @@ $ $(./devsetup environment)
     
 This should:
 
-* Prefix `$MANPATH` with `~/opt/pkgsrc-2022Q4/man` if necessary
-* Prefix `$PATH` with `~/opt/pkgsrc-2022Q4/sbin:~/opt/pkgsrc-2022Q4/bin` if
+* Prefix `$MANPATH` with `~/opt/pkgsrc-2025Q1/man` if necessary
+* Prefix `$PATH` with `~/opt/pkgsrc-2025Q1/sbin:~/opt/pkgsrc-2025Q1/bin` if
   necessary
 * Alias `devsetup` within the environment
 
@@ -90,41 +90,41 @@ $ devsetup status -q
 dovecot is running as pid 41645.
 nginx is running as pid 45946.
 pgsql is running as pid 41667 41669 41670 41671 41672 41673 41674.
-php_fpm is running as pid 45975.
+php_fpm82 is running as pid 45975.
 slapd is running as pid 41763.
 ```
 
 To restart specific services:
 
 ```shell-session
-$ devsetup restart nginx php_fpm
+$ devsetup restart nginx php_fpm82
 devsetup: nginx: Restarting service...
 Stopping nginx.
 Waiting for PIDS: 41654.
 Starting nginx.
 devsetup: nginx: service restarted
-devsetup: php_fpm: Restarting service...
-Stopping php_fpm.
+devsetup: php_fpm82: Restarting service...
+Stopping php_fpm82.
 Waiting for PIDS: 41681.
-Starting php_fpm.
-devsetup: php_fpm: service restarted
+Starting php_fpm82.
+devsetup: php_fpm82: service restarted
 ```
 
 ## Assumptions
 
-1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2022Q4`
+1. `devsetup` installs the compiled environment in `~/opt/pkgsrc-2025Q1`
 
 ## Services
 
 The services running by default are:
 
-| *Name*    | *Software* | *Package*                | *Address*        | *Comments*                                           |
-| --------- | ---------- | ------------------------ | ---------------- | ---------------------------------------------------- |
-| `dovecot` | Dovecot    | `mail/dovecot2`          | `127.0.0.1:1143` | [webmail](http://127.0.0.1:8080/webmail)             |
-| `nginx`   | Nginx      | `www/nginx`              | `127.0.0.1:8080` | [default page](http://127.0.0.1:8080/devsetup)       |
-| `pgsql`   | PostgreSQL | `databases/postgresql13` | `127.0.0.1:5432` | [administration](http://127.0.0.1:8080/phppgadmin)   |
-| `php_fpm` | PHP-FPM    | `www/php-fpm`            | `127.0.0.1:9000` | Fast CGI                                             |
-| `slapd`   | OpenLDAP   | `databases/openldap`     | `127.0.0.1:3389` | [administration](http://127.0.0.1:8080/phpldapadmin) |
+| *Name*      | *Software* | *Package*                | *Address*        | *Comments*                                           |
+| ----------- | ---------- | ------------------------ | ---------------- | ---------------------------------------------------- |
+| `dovecot`   | Dovecot    | `mail/dovecot2`          | `127.0.0.1:1143` | [webmail](http://127.0.0.1:8080/webmail)             |
+| `nginx`     | Nginx      | `www/nginx`              | `127.0.0.1:8080` | [default page](http://127.0.0.1:8080/devsetup)       |
+| `pgsql`     | PostgreSQL | `databases/postgresql16` | `127.0.0.1:5432` | [administration](http://127.0.0.1:8080/phppgadmin)   |
+| `php_fpm82` | PHP-FPM    | `www/php-fpm`            | `127.0.0.1:9000` | Fast CGI                                             |
+| `slapd`     | OpenLDAP   | `databases/openldap`     | `127.0.0.1:3389` | [administration](http://127.0.0.1:8080/phpldapadmin) |
 
 Every service can be configured to run on a different address; this can be
 useful when using a VM for `devsetup` for instance.
