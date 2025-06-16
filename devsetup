@@ -38,6 +38,7 @@ GREP="grep"
 INSTALL="install"
 LN="/bin/ln -f"
 MKDIR="mkdir"
+PKG_ADD=
 PKG_DELETE=
 PSQL=
 RM="/bin/rm -f"
@@ -100,6 +101,8 @@ www/nginx
 www/php-fpm
 www/py-flask-common
 www/py-gunicorn"
+PACKAGES=
+PKGEXT=".tgz"
 PKGSRC_PREFIX=
 PKGSRC_REPOSITORY_BRANCH="pkgsrc-2025Q1"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
@@ -129,6 +132,7 @@ VERBOSE=1
 [ -n "$HTTP_ADDRESS" ]		|| HTTP_ADDRESS="$DEFAULT_ADDRESS"
 [ -n "$IMAP_ADDRESS" ]		|| IMAP_ADDRESS="$DEFAULT_ADDRESS"
 [ -n "$LDAP_ADDRESS" ]		|| LDAP_ADDRESS="$DEFAULT_ADDRESS"
+[ -n "$PKG_ADD" ]		|| PKG_ADD="$PKGSRC_PREFIX/sbin/pkg_add"
 [ -n "$PKG_DELETE" ]		|| PKG_DELETE="$PKGSRC_PREFIX/sbin/pkg_delete"
 [ -n "$PKGSRC_SYSCONFDIR" ]	|| PKGSRC_SYSCONFDIR="$PKGSRC_PREFIX/etc"
 [ -n "$POSTGRESQL_DATADIR" ]	|| POSTGRESQL_DATADIR="$PKGSRC_PREFIX/pgsql/data"
@@ -5901,6 +5905,24 @@ _devsetup_package_install()
 	#detect if the package is already installed
 	if [ -d "$PKGSRC_PREFIX/pkgdb/$name" ]; then
 		_info "$package: Package already installed ($name)"
+		return 0
+	fi
+
+	#use the binary package if available
+	if [ -z "$PACKAGES" ]; then
+		PACKAGES=$(cd "$PKGSRC_REPOSITORY/$package" && $BMAKE -V '${PACKAGES}')
+		if [ $? -ne 0 ]; then
+			_error "$package: Could not obtain the package directory"
+			return $?
+		fi
+	fi
+	if [ -f "$PACKAGES/All/$name$PKGEXT" ]; then
+		_info "$package: Installing binary package... ($name)"
+		$DEBUG $PKG_ADD "$PACKAGES/All/$name$PKGEXT"
+		if [ $? -ne 0 ]; then
+			_error "$package: Could not install package"
+			return $?
+		fi
 		return 0
 	fi
 
