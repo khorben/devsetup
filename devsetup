@@ -160,6 +160,11 @@ _devsetup()
 	command="$1"
 	shift
 
+	if [ ! -x "$BMAKE" -a "$command" != "init" ]; then
+		_error 'not initialized; run "devsetup init" first'
+		return $?
+	fi
+
 	case "$command" in
 		clean\
 		|configure\
