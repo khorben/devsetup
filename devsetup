@@ -104,7 +104,7 @@ www/py-gunicorn"
 PACKAGES=
 PKGEXT=".tgz"
 PKGSRC_PREFIX=
-PKGSRC_REPOSITORY_BRANCH="pkgsrc-2025Q1"
+PKGSRC_REPOSITORY_BRANCH="pkgsrc-2025Q2"
 PKGSRC_REPOSITORY_REMOTE="https://git.edgebsd.org/EdgeBSD/pkgsrc.git"
 PKGSRC_REPOSITORY_REMOTE_ID="origin"
 PKGSRC_REPOSITORY="${0%/*}/repositories/pkgsrc"
