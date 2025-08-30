@@ -3839,7 +3839,7 @@ pid = run/php-fpm.pid
 ; Relative path can also be used. They will be prefixed by:
 ;  - the global prefix if it's been set (-p argument)
 ;  - $PKGSRC_PREFIX otherwise
-include=$PKGSRC_SYSCONFDIR/php-fpm.d/*.conf
+include=$PKGSRC_SYSCONFDIR/etc/php/8.2/php-fpm.d/*.conf
 EOF
 
 	#etc/php/8.2/php-fpm.d/www.conf
