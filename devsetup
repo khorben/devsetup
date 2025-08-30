@@ -97,6 +97,7 @@ pkgtools/rc.subr
 security/cyrus-saslauthd
 security/cy2-plain
 security/gnupg
+security/mozilla-rootcerts-openssl
 www/nginx
 www/php-fpm
 www/py-flask-common
