@@ -1247,6 +1247,9 @@ service stats {
 #10-ssl.conf
 ssl = no
 
+#20-imap.conf
+mail_max_userip_connections = 20
+
 #20-managesieve.conf
 service managesieve {
   chroot =
