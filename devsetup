@@ -1246,6 +1246,15 @@ service stats {
 
 #10-ssl.conf
 ssl = no
+
+#20-managesieve.conf
+service managesieve {
+  chroot =
+}
+
+service managesieve-login {
+  chroot =
+}
 EOF
 }
 
